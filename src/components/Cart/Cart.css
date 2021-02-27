@@ -1,0 +1,17 @@
+.cart{
+    border: 1px solid teal;
+    padding: 10px;
+    background-color: teal;
+    color: white;
+
+    margin-top: 100px;
+    position: fixed;
+    top: -100px;
+    right: 0;
+    opacity: 0.8;
+
+    transition: 0.5s all;
+}
+.cart:hover{
+    opacity: 1;
+}
