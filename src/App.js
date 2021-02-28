@@ -4,6 +4,7 @@ import Cart from "./components/Cart/Cart";
 import Country from "./components/Country/Country";
 
 function App() {
+    const [loading, setLoading] = useState(true);
     const [countries, setCountries] = useState([]);
     const [cart, setCart] = useState([]);
 
@@ -15,10 +16,19 @@ function App() {
             .then((response) => response.json())
             .then((data) => {
                 setCountries(data);
+                setLoading(false);
                 console.log(data);
             })
             .catch((error) => console.log(error));
     }, []);
+
+    if(loading){
+        return (
+            <div className="imggg">
+                <h1>Data loading...</h1>
+            </div>
+        );
+    }
 
     return (
         <div className="App">

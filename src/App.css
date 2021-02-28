@@ -51,3 +51,12 @@
 
   }
 }
+
+.imggg{
+  background: url('./200.gif') no-repeat;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  line-height: 70vh;
+}
