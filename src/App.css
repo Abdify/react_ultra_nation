@@ -1,14 +1,16 @@
 .App{
+  text-align: center;
+  margin-top: 10px;
+  font-family: 'Courier New', Courier, monospace;
 }
 .container {
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px;
+  margin-top: 10px;
 }
 
-.addAnimation{
+.displayMessage{
     height: 50px;
     width: 50px;
     background-color: teal;
@@ -21,9 +23,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 1s all cubic-bezier(.47,1.64,.41,.8);
+    /* transition: 1s all cubic-bezier(.47,1.64,.41,.8); */
+  }
+  .ani{
+    animation: ani 2s  cubic-bezier(.47,1.64,.41,.8), ani2 1s  2s cubic-bezier(.47,1.64,.41,.8);
 }
-.ani{
+
+@keyframes ani{
+  from{
+    height: 50px;
+    width: 50px;
+  }
+  to{
     height: 400px;
     width: 400px;
+  }
+}
+
+@keyframes ani2{
+  from{
+    height: 400px;
+    width: 400px;
+  }
+  to{
+    height: 50px;
+    width: 50px;
+
+  }
 }

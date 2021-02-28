@@ -1,67 +1,67 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import Cart from './components/Cart/Cart';
-import Country from './components/Country/Country';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Cart from "./components/Cart/Cart";
+import Country from "./components/Country/Country";
 
 function App() {
+    const [countries, setCountries] = useState([]);
+    const [cart, setCart] = useState([]);
 
-  const [countries, setCountries] = useState([])
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    fetch("https://restcountries.eu/rest/v2/all")
-    .then(response => response.json())
-    .then(data => {
-      setCountries(data);
-      console.log(data);
-    })
-    .catch(error => console.log(error))
-  }, [])
+    const [addAnimation, setAddAnimation] = useState("displayMessage");
+    const [addInnerHtml, setAddInnerHtml] = useState("No country added!");
 
-  return (
-      <div className="App">
-          <AddAnimation />
-          <Cart cart={cart} />
-          
-          <div className='container'>
-            <h1>Total countries found: {countries.length}</h1>
+    useEffect(() => {
+        fetch("https://restcountries.eu/rest/v2/all")
+            .then((response) => response.json())
+            .then((data) => {
+                setCountries(data);
+                console.log(data);
+            })
+            .catch((error) => console.log(error));
+    }, []);
 
-            {countries.map((country) => (
-              <Country
-                country={country}
-                key={country.alpha3Code}
-                handleAddCountry={handleAddCountry}
-              ></Country>
-          ))}
+    return (
+        <div className="App">
+            <DisplayMessage />
+            <Cart cart={cart} />
 
-          </div>
-          
+            <div className="container">
+                <h1 style={{textShadow: '2px 2px 10px black'}}>Total countries found: {countries.length}</h1>
 
-      </div>
-  );
-
+                {countries.map((country) => (
+                    <Country
+                        country={country}
+                        key={country.alpha3Code}
+                        handleAddCountry={handleAddCountry}
+                    ></Country>
+                ))}
+            </div>
+        </div>
+    );
 
     function handleAddCountry(country) {
-      console.log(country.name);
+        console.log(country.name);
 
-      const newCart = cart.includes(country) ? cart.filter(c => c !==country) : [...cart, country];
-      setCart(newCart);
-        
-        
-      // <AddAnimation />.classList.add('ani') ?????
-      document.querySelector(".addAnimation").classList.add("ani");
-      document.querySelector(".addAnimation").innerText = `Added ${country.name}`;
-      console.log('what??')
-      setTimeout(() => {
-          document.querySelector(".addAnimation").classList.remove("ani");
-        }, 2000);
-      }
-        
+        const newCart = cart.includes(country)
+            ? cart.filter((c) => c !== country)
+            : [...cart, country];
+        setCart(newCart);
 
+        setAddAnimation("displayMessage ani");
+        //optional... just to remove the ani class from the classlist 
+        setTimeout(() => {
+          setAddAnimation("displayMessage");
+        }, 3000);
 
-    function AddAnimation() {
-      return <div className="addAnimation">No country added</div>;
+        newCart.includes(country)
+            ? setAddInnerHtml(`Added ${country.name}!`)
+            : setAddInnerHtml(`Removed ${country.name}!`);
     }
-      
+
+
+    function DisplayMessage() {
+        return <div className={addAnimation}>{addInnerHtml}</div>;
+    }
 }
 
 export default App;
